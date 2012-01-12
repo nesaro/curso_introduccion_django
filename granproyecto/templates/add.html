@@ -1,0 +1,15 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Añadir servicio</title>
+    </head>
+    <body>
+        {% for servicio in servicios %}
+        <h1>{{ servicio }}</h1>
+        {{ servicio.name }}
+        {{ servicio.providerurl }}
+        {% endfor %}
+    </body>
+</html>

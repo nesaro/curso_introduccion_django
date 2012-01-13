@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Servicios</h2>
+<ul>
+    {% for servicio in object_list %}
+    <li>{{ servicio.name }}: <a href="{{ servicio.providerurl }}">{{ servicio.description }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

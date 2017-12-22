@@ -1,0 +1,646 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Introducción Django - Néstor Arocha</title>
+<!-- metadata -->
+<meta name="generator" content="S5" />
+<meta name="version" content="S5 1.1" />
+<meta name="presdate" content="20050728" />
+<meta name="author" content="Eric A. Meyer" />
+<meta name="company" content="Complex Spiral Consulting" />
+<!-- configuration parameters -->
+<meta name="defaultView" content="slideshow" />
+<meta name="controlVis" content="hidden" />
+<!-- style sheet links -->
+<link rel="stylesheet" href="ui/default/slides.css" type="text/css" media="projection" id="slideProj" />
+<link rel="stylesheet" href="ui/default/outline.css" type="text/css" media="screen" id="outlineStyle" />
+<link rel="stylesheet" href="ui/default/print.css" type="text/css" media="print" id="slidePrint" />
+<link rel="stylesheet" href="ui/default/opera.css" type="text/css" media="projection" id="operaFix" />
+<!-- S5 JS -->
+<script src="ui/default/slides.js" type="text/javascript"></script>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+</head>
+<body>
+
+<div class="layout">
+<div id="controls"><!-- DO NOT EDIT --></div>
+<div id="currentSlide"><!-- DO NOT EDIT --></div>
+<div id="header"></div>
+<div id="footer">
+<h1>13/1/2012</h1>
+<h2>Introducción Django</h2>
+</div>
+
+</div>
+
+
+<div class="presentation">
+
+<div class="slide">
+<h1>Introducción Django</h1>
+<h3>Néstor Arocha Rodríguez</h3>
+<h4>Colonymbus</h4>
+</div>
+
+
+<div class="slide">
+<h1>Donde está django</h1>
+<ul>
+<li>Ejecutado sobre un SO</li>
+<li>Servido desde un servidor web</li>
+<li>Interpretado en Python</li>
+<li>Debajo de sus aplicaciones</li>
+</ul>
+<div class="handout">
+[any material that should appear in print but not on the slide]
+</div>
+</div>
+
+<div class="slide">
+<h1>Algún doctor de ROR en la sala?</h1>
+<ul>
+<li>Misma finalidad</li>
+<li>Filosofia subyacente <ul><li>¿Algún mago en la sala?</li><li>Loose coupling </li><li>DRY</li><li>Baterias incluidas</li></ul></li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>El paradigma MVC</h1>
+<ul>
+    <li>Controlador<ul><li>Responde a eventos y selecciona vistas</li></ul></li>
+    <li>Modelo<ul><li>Forma y contenido de información</li></ul></li>
+    <li>Vista<ul><li>Presenta el contenido de los modelos de acuerdo a los requisitos del sistema</li></ul></li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Tabla comparativa de terminos</h1>
+<center>
+<table border="1">
+      <tr><td></td><td>Django</td><td>RoR</td><td>PHP</td></tr>
+      <tr><td>Modelo</td><td>Modelo</td><td>Modelo</td><td>Programador</td></tr>
+      <tr><td>Vista</td><td>Vista+Plantilla</td><td>Controlador+Vista</td><td>fichero.php</td></tr>
+      <tr><td>Controlador</td><td>urls</td><td>enrutador</td><td>directorios</td></tr>
+</table>
+</center>
+</div>
+
+
+<div class="slide">
+    <h1>La estructura de aplicaciones de django</h1>
+<ul >
+    <li>Raíz (sitio o multisitio)
+    <ul class="incremental show-first">
+        <li>settings.py</li>
+        <li>manage.py</li>
+        <li>urls.py</li>
+        <li>* Aplicación <ul class="incremental show-first">
+        <li>views.py</li>
+        <li>models.py</li>
+        <li>? admin.py</li>
+        <li>? tests.py</li>
+        <li>? urls.py</li>
+    </ul></li>
+</ul></li>
+</ul>
+</div>
+
+<div class="slide">
+    <h1>Una sesión de prueba</h1>
+    <ul>
+        <li>Crear un proyecto</li>
+        <li>Crear una aplicación</li>
+        <li>Crear una vista</li>
+        <li>Ejecutar el servidor</li>
+        <li>Disfrutar del contenido estático</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Copypasta</h1>
+    <ul class="incremental show-first">
+        <li><tt>#Creamos un proyecto</tt></li>
+
+        <li><tt>django-admin startproject granproyecto</tt></li>
+        <li><tt>cd granproyecto</tt></li>
+        
+        <li><tt>$EDITOR settings.py #Configuración básica</tt></li>
+        
+        <li><tt>python manage.py runserver </tt></li>
+
+        <li><tt>python manage.py startapp funcionalidad </tt></li>
+       
+        <li><tt>$EDITOR funcionalidad/views.py #Creamos una vista</tt></li>
+
+        <li><tt>$EDITOR urls.py </tt></li>
+
+        <li><tt>python manage.py runserver #servidor de pruebas</tt></li>
+    </ul>
+
+</div>
+
+<div class="slide">
+    <h1>Copypasta (II)</h1>
+    <pre>
+        #Contenido de la vista
+
+
+        from django.http import HttpResponse
+        def index(request):
+            return HttpResponse("malkovich malkovich malkovich")
+
+    </pre>
+</div>
+
+
+<div class="slide">
+    <h1>Explicación de la sesión (I)</h1>
+    <ul class="incremental show-first">
+        <li>El usuario solicita una URL a través de su navegador</li>
+        <li>Busca la primera coincidencia en urls.py</li>
+        <li>Ejecuta la vista asociada a la url con la petición</li>
+        <li>La vista devuelve una respuesta</li>
+        <li>El servidor web devuelve la respuesta al cliente</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Explicación de la sesión (II)</h1>
+    <center><img src="PosblediagramaDjango.png" /></center>
+    <ul><li>Autor: Ayose Cazorla</li></ul>
+</div>
+
+<div class="slide">
+    <h1> Bloque II: Un repaso a los conceptos importantes</h1>
+    <ul>
+        <li>Modelo</li>
+        <li>Plantillas</li>
+        <li>Vista</li>
+        <li>urls.py (Controlador)</li>
+        <li>formulario</li>
+    </ul>
+</div>
+
+
+<div class="slide">
+    <h1>Modelos</h1>
+    <ul class="incremental show-first">
+        <li>Son clases de python</li>
+        <li>Hay diferentes tipos de campos (<a href="https://docs.djangoproject.com/en/dev/ref/models/fields/">Referencia</a>)</li>
+        <li>Tienen metodos de acceso all, filter, get (<a href="https://docs.djangoproject.com/en/dev/topics/db/queries/">Referencia</a>)</li>
+        <li>Las relaciones entre modelos se realizan con unos campos especiales
+        <ul>
+            <li>ForeignKeyField</li>
+            <li>ManyToManyField</li>
+            <li>OneToOneField</li>
+        </ul>
+        </li>
+        <li>Debajo hay un ORM propio de django (y reemplazable)</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Modelos (II)</h1>
+    <pre>
+from django.db import models
+from django.contrib.auth.models import User
+
+# Create your models here.
+
+class Servicio(models.Model):
+    name = models.CharField(max_length=50)
+    user = models.OneToOneField(User, editable = False)
+    description = models.CharField(max_length=300)
+    providerurl = models.URLField()
+
+    def __str__(self):
+        return self.name
+    </pre>
+</div>
+
+<div class="slide">
+    <h1>Plantillas</h1>
+    <ul class="incremental show-first">
+        <li>Formato propio</li>
+        <li>Basado en bloques</li>
+        <li>{{ variable }} {% codigo %}</li>
+        <li>No permite ningún tipo de programación salvo:<ul><li>bucles</li><li> condiciones </li><li> filtros</li></ul></li>
+        <li>Se permite herencia de plantillas por sustitución de bloques</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Plantillas (II)</h1>
+    <pre>
+        {% extends "base.html" %}
+
+        {% block content %}
+        &lt;h2&gt;Añadir Servicio&lt;/h2&gt;
+        &lt;form method="post"&gt;{% csrf_token %}
+                {% for field in form %}
+                &lt;div class="fieldWrapper"&gt;
+                    {{ field.errors }}
+                    {{ field.label_tag }}: {{ field }}
+                &lt;/div&gt;
+                {% endfor %}
+        &lt;input type="submit" value="Submit" /&gt;
+        &lt;/form&gt; 
+        {% endblock %}
+    </pre>
+</div>
+
+<div class="slide">
+    <h1>Plantillas (III)</h1>
+    <center><img src="templates.png" /></center>
+</div>
+
+<div class="slide">
+    <h1>Vistas (I)</h1>
+    <ul>
+        <li>Son una función de python</li>
+        <li>Toda vista recibe un request y devuelve un response</li>
+        <li>Pueden incluir modelos, formularios y en general cualquier código</li>
+        <li>Familia de metodos de conveniencia alrededor de las vistas</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Vistas (II)</h1>
+    <pre>
+    def add(request):
+        from .models import Servicio
+        servicio = Servicio(name="cafeteria",description="Sirve refrescos", providerurl="http://vendo_espacio_publicidad.com")
+        servicio.save()
+        servicios = Servicio.objects.all()
+        return render_to_response("add.html", { 'servicios':servicios})
+
+    </pre>
+</div>
+
+<div class="slide">
+    <h1>Controlador</h1>
+    <ul>
+        <li>Es un listado de expresiones regulares</li>
+        <li>Puedes incluir las urls de las aplicaciones</li>
+        <li>Pueden incluir pasar parámetros a través de los grupos de la exp. regular</li>
+        <li>Es evaluado por orden y en cortocircuito</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Controlador (II)</h1>
+    <pre>
+        from django.conf.urls import patterns, url, include
+        urlpatterns = patterns('',
+        (r'^articles/2003/$', 'news.views.special_case_2003'),
+        (r'^articles/(\d{4})/$', 'news.views.year_archive'),
+        (r'^articles/(\d{4})/(\d{2})/$', 'news.views.month_archive'),
+        (r'^articles/(\d{4})/(\d{2})/(\d+)/$', 'news.views.article_detail'),
+        )
+    </pre>
+</div>
+
+<div class="slide">
+    <h1>Formularios</h1>
+    <ul>
+        <li>Son clases de python</li>
+        <li>Utilizan widgets para el dibujado y la interacción</li>
+        <li>Proveen métodos para mostrar el contenido en la plantilla</li>
+        <li>Proveen métodos para validar</li>
+        <li>Vinculación con modelos</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Formularios (II)</h1>
+    <pre>
+        class UserForm(forms.Form):
+            fullname = forms.CharField()
+            email = forms.EmailField(label='email')
+
+        class UserForm(forms.ModelForm):
+            class Meta:
+                model = User
+    </pre>
+</div>
+
+
+<div class="slide">
+    <h1> Bloque III Otra sesión de prueba</h1>
+    <ul>
+        <li>Añadir un modelo</li>
+        <li>Sincronizar la bbdd</li>
+        <li>Crear un template</li>
+        <li>Crear una vista con el template y el modelo</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>CopyPasta (I)</h1>
+    <pre>
+    #funcionalidad/models.py
+
+    class Servicio(models.Model):
+        name = models.CharField(max_length=50)
+        description = models.CharField(max_length=300)
+        providerurl = models.URLField()
+    
+        def __str__(self):
+            return self.name
+    
+
+    </pre>
+</div>
+
+<div class="slide">
+    <h1>CopyPasta (II)</h1>
+    <pre>
+    #templates/add.html
+
+    {% load i18n %}
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+        &lt;head&gt;
+            &lt;meta charset="utf-8"&gt;
+            &lt;title&gt;Añadir servicio&lt;/title&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+            {% for servicio in servicios %}
+            &lt;h1&gt;{{ servicio }}&lt;/h1&gt;
+            {{ servicio.name }}
+            {{ servicio.providerurl }}
+            {% endfor %}
+        &lt;/body&gt;
+    &lt;/html&gt;
+
+    </pre>
+</div>
+
+<div class="slide">
+    <h1>CopyPasta (III)</h1>
+    <pre>
+     #funcionalidad/views.py
+
+     from django.http import HttpResponse
+     from django.shortcuts import render_to_response
+     ...
+      def add(request):
+        from .models import Servicio
+        servicio = Servicio(name="cafeteria",description="Sirve refrescos", providerurl="http://vendo_espacio.com)
+        servicio.save()
+        servicios = Servicio.objects.all()
+        return render_to_response("add.html", { 'servicios':servicios})
+    </pre>
+</div>
+
+<div class="slide">
+    <h1>CopyPasta (IV)</h1>
+    <pre>
+    #urls.py
+
+    url(r'^add/$', 'granproyecto.funcionalidad.views.add', name='add'),
+
+    #settings.py
+
+    TEMPLATE_DIRS = (
++    "/home/nesaro/proyectos/charla-django/code/granproyecto/templates/",
+ )
+    INSTALLED_APPS = (
++    'funcionalidad',
+)
+
+    </pre>
+</div>
+
+
+<div class="slide">
+    <h1> Bloque IV: Las aplicaciones incluidas</h1>
+    <ul>
+        <li>Filosofia baterias incluidas</li>
+        <li>Ofrecen: <ul>
+            <li>modelos</li><li>vistas</li><li>formularios</li><li>urls</li><li>decoradores</li></ul></li>
+        <li><a href="https://docs.djangoproject.com/en/dev/ref/contrib/">Referencia</a></li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1> La aplicación admin</h1>
+    <ul>
+        <li>Permite administrar los modelos de las aplicaciones registradas</li>
+        <li>Ajusta automáticamente todos los valores segun el tipo de Field</li>
+        <br />
+        <center><img src="admin.png" /></center>
+    </ul>
+</div>
+
+
+<div class="slide">
+    <h1> La aplicación auth</h1>
+    <ul>
+        <li>Permite el uso de usuarios y sesiones</li>
+        <li>Permite administrar los usuarios</li>
+        <li>Incluye el decorador @login_required </li>
+    </ul>
+</div>
+
+
+<div class="slide">
+    <h1> Bloque V: Caracteristicas Avanzadas</h1>
+    <ul>
+        <li>Vistas genericas</li>
+        <li>Storages</li>
+        <li>Middleware</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Aplicaciones y complementos no incluidos</h1>
+    <ul>
+        <li><a href="http://south.aeracode.org/">south</a></li>
+        <li><a href="http://haystacksearch.org">haystack</a></li>
+        <li><a href="https://github.com/omab/django-social-auth">django-social-auth</a></li>
+        <li><a href="http://easy-thumbnails.readthedocs.org/en/latest/index.html">easy-thumbnails</a></li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1> Bloque VI Sesión de pruebas</h1>
+    <ul>
+        <li>Administrar el modelo</li>
+        <li>Formularios</li>
+        <li>Herencia de plantillas</li>
+        <li>Vistas genéricas</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>CopyPasta (I)</h1>
+    <pre>
+    #templates/base.html
+
+    {% load i18n %}
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+        &lt;head&gt; 
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;{% block title %}{% endblock %}&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+            &lt;div id="content"&gt; {% block content %}{% endblock %} &lt;/div&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+    </pre>
+</div>
+
+<div class="slide">
+    <h1>CopyPasta (II)</h1>
+    <pre>
+    #templates/funcionalidad/servicio_list.html
+    {% extends "base.html" %}
+    
+    {% block content %}
+    &lt;h2&gt;Servicios&lt;/h2&gt;
+    &lt;ul&gt;
+        {% for servicio in object_list %}
+        &lt;li&gt;{{ servicio.name }}: &lt;a href="{{ servicio.providerurl }}"&gt;{{ servicio.description }}&lt;/a&gt;&lt;/li&gt;
+        {% endfor %}
+    &lt;/ul&gt;
+    {% endblock %}
+    </pre>
+</div>
+
+<div class="slide">
+    <h1>CopyPasta (III)</h1>
+    <pre>
+    #templates/newadd.html
+    {% extends "base.html" %}
+    
+    {% block content %}
+    &lt;h2&gt;Añadir Servicio&lt;/h2&gt;
+    &lt;form method="post"&gt;{% csrf_token %}
+            {% for field in form %}
+            &lt;div class="fieldWrapper"&gt;
+                {{ field.errors }}
+                {{ field.label_tag }}: {{ field }}
+            &lt;/div&gt;
+            {% endfor %}
+    &lt;input type="submit" value="Submit" /&gt;
+    &lt;/form&gt;
+    {% endblock %}
+
+    </pre>
+</div>
+
+<div class="slide">
+    <h1>CopyPasta (IV)</h1>
+    <pre>
+    #urls.py 
+
+    from django.views.generic.list import ListView
+    from funcionalidad.models import Servicio
+     
+     # Uncomment the next two lines to enable the admin:
+    from django.contrib import admin
+    admin.autodiscover()
+
+    url(r'^add2/$', 'granproyecto.funcionalidad.views.add2', name='add'),
+    url(r'^view/$', ListView.as_view(model=Servicio)),
+    
+    url(r'^admin/', include(admin.site.urls)),
+    </pre>
+</div>
+
+<div class="slide">
+    <h1>CopyPasta (V)</h1>
+    <pre>
+    #funcionalidad/admin.py
+
+    from funcionalidad.models import Servicio
+    from django.contrib import admin
+    
+    admin.site.register(Servicio)
+    </pre>
+</div>
+
+<div class="slide">
+    <h1>CopyPasta (VIa)</h1>
+<pre>
+    #funcionalidad/views.py
+
+    from django.template import RequestContext
+    from django.shortcuts import render_to_response, redirect
+    from django.forms import ModelForm
+    from funcionalidad.models import Servicio
+    
+    
+    class Serviceform(ModelForm):
+        class Meta:
+            model = Servicio
+
+    #(continua)
+</pre>
+</div>
+
+<div class="slide">
+    <h1>CopyPasta (VIb)</h1>
+<pre>
+    #funcionalidad/views.py
+
+    def add2(request):
+        form = Serviceform(request.POST)
+        if request.method == 'POST':
+            if form.is_valid():
+                new_service = form.save()
+                return redirect("/")
+        return render_to_response('newadd.html', {'form':form}, context_instance = RequestContext(request))
+    
+</pre>
+</div>
+
+<div class="slide">
+    <h1>CopyPasta (I)</h1>
+    <pre>
+    #settings.py
+
+    -STATIC_ROOT = ''
+    +STATIC_ROOT = '/path/to/granproyecto/static/'
+ 
+INSTALLED_APPS = (
+    ...
+    +'django.contrib.admin',
+)
+
+    </pre>
+</div>
+
+<div class="slide">
+    <h1> Algunos sitios vivientes basados en django </h1>
+    <ul>
+        <li><a href="http://www.djangosites.org/">http://www.djangosites.org/</a></li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1> Recursos disponibles </h1>
+    <ul>
+        <li><a href="https://docs.djangoproject.com/en/dev/intro/">Tutorial oficial </a></li>
+        <li><a href="https://docs.djangoproject.com/en/dev/">Referencia </a></li>
+        <li><a href="http://www.djangobook.com">django book</a></li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1> The end </h1>
+    <ul>
+        <li>Gracias por venir</li>
+        <li>¿Preguntas?</li>
+    </ul>
+</div>
+
+</div>
+
+</body>
+</html>
